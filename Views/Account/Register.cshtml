@@ -1,0 +1,74 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <label asp-for="FullName"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <label asp-for="GovernmentID" ></label>
+                        <input asp-for="GovernmentID" class="form-control" />
+                        <span asp-validation-for="GovernmentID" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <label asp-for="StreetAddress"></label>
+                        <input asp-for="StreetAddress" class="form-control" />
+                        <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <label asp-for="State"></label>
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                        <div class="form-group">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>

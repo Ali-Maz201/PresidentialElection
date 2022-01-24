@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PresidentialElection.Data;
+using PresidentialElection.Data.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,12 @@ namespace PresidentialElection
             services.AddDbContext<ApplicationContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("ElectionConnection")));
             
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+            services.AddIdentity<StoreUser, IdentityRole>(options => 
                 options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<ApplicationContext>();
-            
+
+            services.AddAutoMapper(typeof(ElectionProfile));
+
             services.AddControllersWithViews();
             
             services.AddRazorPages();
@@ -56,7 +59,7 @@ namespace PresidentialElection
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
