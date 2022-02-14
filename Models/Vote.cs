@@ -11,9 +11,10 @@ namespace PresidentialElection.Models
         public DateTime VoteDate { get; set; } = DateTime.Now;
 
 
+        //Navigation Properties
         public int CandidateID { get; set; }
         public Candidate Candidate { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public StoreUser User { get; set; }
     }
 }

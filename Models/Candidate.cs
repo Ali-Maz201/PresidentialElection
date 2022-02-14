@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PresidentialElection.Data;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PresidentialElection.Models
@@ -8,9 +10,15 @@ namespace PresidentialElection.Models
         [Key]
         public int CanditateID { get; set; }
         public string Name { get; set; }
-        public string Party { get; set; } = "Unfilieted";
+        public string Party { get; set; }
+        public string PhotoFileName { get; set; }
+        public int NumberOFVotes { get; set; } = 0;
+        public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
-        
+
+        //Navigation Properties
         public ICollection<Vote> Votes { get; set; }
+        public string Id { get; set; }
+        public StoreUser User { get; set; }
     }
 }

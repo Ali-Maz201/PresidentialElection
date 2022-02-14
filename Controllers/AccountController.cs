@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using PresidentialElection.Data;
-using PresidentialElection.Models;
 using PresidentialElection.ViewModels;
 using System.Threading.Tasks;
 
@@ -15,15 +12,16 @@ namespace PresidentialElection.Controllers
         private readonly UserManager<StoreUser> _userManager;
         private readonly SignInManager<StoreUser> _signInManager;
         private readonly IMapper _mapper;
+        
 
-        public AccountController(UserManager<StoreUser> userManager, SignInManager<StoreUser> signInManager, IMapper mapper)
+        public AccountController(UserManager<StoreUser> userManager, SignInManager<StoreUser> signInManager, IMapper mapper, ApplicationContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+
         }
 
-        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -39,8 +37,7 @@ namespace PresidentialElection.Controllers
                 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
-                {
-                    
+                {   
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("Login", "Account");
@@ -57,29 +54,43 @@ namespace PresidentialElection.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel user)
+        public async Task<IActionResult> Login(LoginViewModel user, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if(!string.IsNullOrEmpty(returnUrl))
+                    {
+
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
 
-              ModelState.AddModelError("", "Failed to login.");
+              ModelState.AddModelError("", "Username or password is incorrect");
 
             }
             return View(user);
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

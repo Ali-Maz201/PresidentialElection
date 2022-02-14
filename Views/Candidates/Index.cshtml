@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PresidentialElection.Models.Candidate>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Candidates</h1>
+<div><a asp-action="EnrollCandidacy">Enroll</a> in the race for president !</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Party)
+            </th>
+            <th>
+                Number of Votes !
+            </th>
+            <th>
+                Give your vote !
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@("~/Images/" + item.PhotoFileName)" asp-append-version="true" width="70px" height="70px">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Party)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOFVotes)
+            </td>
+            <td>
+                <a asp-action="VoteCandidate" asp-route-candidateID="@item.CanditateID" class="btn btn-danger"><i class="fas fa-person-booth">Vote</i></a>
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using PresidentialElection.Models;
 using PresidentialElection.ViewModels;
 
 namespace PresidentialElection.Data.Profiles
