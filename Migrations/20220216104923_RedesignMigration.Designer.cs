@@ -10,7 +10,7 @@ using PresidentialElection.Data;
 namespace PresidentialElection.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220214135630_RedesignMigration")]
+    [Migration("20220216104923_RedesignMigration")]
     partial class RedesignMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,6 +178,9 @@ namespace PresidentialElection.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Enrolled")
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")

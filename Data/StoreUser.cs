@@ -13,6 +13,5 @@ namespace PresidentialElection.Data
         public bool Enrolled { get; set; } = false;
         public DateTime DateOfBirth { get; set; }
         public DateTime CreatedAccount { get; set; } = DateTime.Now;
-        
     }
 }

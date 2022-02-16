@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace PresidentialElection.Controllers
             return View(await _context.Candidates.ToListAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> VoteCandidate(int? candidateID)
         {
             if (candidateID == null)
@@ -58,17 +60,13 @@ namespace PresidentialElection.Controllers
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
         public IActionResult EnrollCandidacy()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            return RedirectToAction("Login", "Account");
+            return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> EnrollCandidacy(CandidateCreateViewModel model)
         {

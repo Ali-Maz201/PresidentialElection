@@ -57,6 +57,13 @@ namespace PresidentialElection.Migrations
                 oldType: "nvarchar(max)",
                 oldNullable: true);
 
+            migrationBuilder.AddColumn<bool>(
+                name: "Enrolled",
+                table: "AspNetUsers",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Candidates_UserId",
                 table: "Candidates",
@@ -100,6 +107,10 @@ namespace PresidentialElection.Migrations
             migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "Enrolled",
+                table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<int>(
                 name: "Id",
