@@ -81,7 +81,7 @@ namespace PresidentialElection.Controllers
                 string fileName = Path.GetFileNameWithoutExtension(model.PhotoFile.FileName);
                 string extension = Path.GetExtension(model.PhotoFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
-                string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                string path = Path.Combine(wwwRootPath, "Images", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await model.PhotoFile.CopyToAsync(fileStream);
